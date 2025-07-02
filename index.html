@@ -1,23 +1,628 @@
 <!DOCTYPE html>
-<html><head>
-	<title>ovie.cc</title>
-<!-- <meta http-equiv="refresh" content="0;url=https://github.com/suovie" /> -->
-<!-- <meta http-equiv="content-type" content="text/html; charset=UTF-8"> -->
-<style>
-html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
-body{font-family:Verdana,Arial,sans-serif;font-size:12px;line-height:18px;padding:10px 25px}h1{font-size:18px;font-weight:400}hr{color:silver;margin:18px 0}li{margin:8px 0;padding-left:5px}a{color:red}
-</style></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ovie U.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background-color: #111111;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #111111;
+      border-bottom: 1px solid #ffffff;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: 'Roboto Mono', monospace;
+      position: relative;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #ffffff;
+      transition: width 0.3s ease;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #111111;
+      padding: 0 20px;
+    }
+
+    .hero-content {
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .hero .tagline {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: #cccccc;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border: 1px solid #ffffff;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Roboto Mono', monospace;
+      background: none;
+      color: #ffffff;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .about,
+    .experience,
+    .skills,
+    .contact {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      color: #cccccc;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .stat-label {
+      color: #cccccc;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: #ffffff;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      opacity: 1;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background: #1a1a1a;
+      border: 1px solid #ffffff;
+      border-radius: 10px;
+    }
+
+    .timeline-content h3,
+    .timeline-content h4,
+    .timeline-content p,
+    .timeline-content .date {
+      color: #cccccc;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid #ffffff;
+    }
+
+    .skill-category h3 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      border: 1px solid #ffffff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      color: #ffffff;
+    }
+
+    .contact-content {
+      text-align: center;
+      color: #cccccc;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-label {
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .contact-item a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .timeline::after {
+        left: 31px;
+      }
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 20px;
+      }
+      .timeline-item:nth-child(even) {
+        left: 0%;
+      }
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+      .hero .tagline {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
 <body>
-<h1><img style="vertical-align: text-top; margin-right: 10px;" src=" data:image/gif;base64,R0lGODlhGQAhAKIAAP///4CAgAAA/wAAAMzMzAAAAAAAAAAAACH5BAAAAAAALAAAAAAZACEAAAN9GLrcDDCGSGsN49pNVZZcGBAYGG4T+U2nxaoA21JDbQ/yvBG4HvI5HwXIIQkEo2IPdTwGI0Rm8wmJWoxIgpIqtAqHy0pzvC2OBWXOOb1Z78IW9xUuJr+5AHnFOzxr51RndmB4OnxfAIdfil10iIw+QASTlJWWl5M3mpucNwkAOw==">The page cannot be found</h1>
-<p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-<hr>
-<p>Please try the following:</p>
-<ul>
-	<li>Make sure the page address in the address bar is spelled correctly.</li>
-	<li>Open the <a href="https://suovie.github.io/">home page</a> and look for links to the information you want.</li>
-	<li>Click <a href="https://duckduckgo.com/"><img style="vertical-align: text-top; margin-right: 3px;" src=" data:image/gif;base64,R0lGODlhEAAQAJEAAP///wAAAMDAwICAgCH5BAAAAAAALAAAAAAQABAAAAJKhB2ZxxggoGogRKGEGO9YaWka51mhOHbhqQTD9pyam75xMg8HTD7Yb7iYKsLPBUMiSl4QAKdDFL5gFcYKM0FYLS8bFOrIqijkRQEAOw==">Search</a> to look for information on the Internet.</li>
-</ul>
-<p>HTTP 404 - File not found<br>Internet Explorer</p>
-</body><style id="stylus-1" type="text/css" class="stylus">.newMatches .liveMatchesContainer .liveMatch:hover, .newMatches .liveMatchesContainer .upcomingMatch:hover, .newMatches .upcomingMatchesContainer .liveMatch:hover, .newMatches .upcomingMatchesContainer .upcomingMatch:hover {
-    background: none !important;
-}</style></html>
+    <body>
+    <header>
+        <nav>
+            <div class="logo"></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>Ovie U.</h1>
+            <p class="subtitle">Senior Software Engineer</p>
+            <p class="tagline">$ cat /dev/backend | grep -E "(scalable|distributed|high-performance)" | wc -l<br>
+            > Building enterprise-grade backend systems, microservices, and distributed architectures. Currently expanding into AI/ML infrastructure and MLOps pipelines.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">$ ssh ovie@contact</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">$ whoami && cat /proc/meminfo</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>#!/bin/bash<br>
+                    # Senior Backend Engineer with 7+ years in the trenches<br>
+                    echo "Designing and architecting scalable, fault-tolerant systems that handle millions of requests per second. My expertise spans financial services and fintech, where uptime isn't just a metric—it's everything."</p>
+                    <br>
+                    <p># Current focus: AI/ML infrastructure & MLOps<br>
+                    while true; do<br>
+                    &nbsp;&nbsp;learn_ai_infrastructure()<br>
+                    &nbsp;&nbsp;build_data_pipelines()<br>
+                    &nbsp;&nbsp;optimize_ml_workflows()<br>
+                    done</p>
+                    <br>
+                    <p># Location: Lagos, Nigeria<br>
+                    # Status: Building the backend that powers the future</p>
+                </div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <span class="stat-number">7+</span>
+                        <div class="stat-label">Years in Production</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">99.9%</span>
+                        <div class="stat-label">Uptime SLA</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">10M+</span>
+                        <div class="stat-label">Requests/Day</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">~0ms</span>
+                        <div class="stat-label">Latency Target</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Senior Software Engineer</h3>
+                        <h4>Moniepoint UK</h4>
+                        <div class="date">Oct 2024 - Present</div>
+                        <p>Building core backend systems in a cross-border fintech environment. Designing and optimizing distributed services to support thousands of customers reliably.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Senior Software Engineer</h3>
+                        <h4>Airtel Africa Digital Labs</h4>
+                        <div class="date">Feb 2024 - Oct 2024</div>
+                        <p>Led development of backend services powering Smartcash PSB, a payments bank serving millions. Achieved 30% increase in transaction processing speed.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Software Engineer</h3>
+                        <h4>Interswitch</h4>
+                        <div class="date">Nov 2021 - Feb 2024</div>
+                        <p>Optimized microservices for Transfer Service, achieving 40% boost in processing speed and 30% decrease in resource usage while maintaining 99% uptime.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>RPA Developer</h3>
+                        <h4>Fidelity Bank PLC</h4>
+                        <div class="date">May 2021 - Oct 2021</div>
+                        <p>Built and maintained bots for monitoring irregular banking activities. Automated reconciliation workflows across product lines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages & Frameworks</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Backend & Architecture</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Microservices</span>
+                        <span class="skill-tag">Distributed Systems</span>
+                        <span class="skill-tag">Event-Driven Architecture</span>
+                        <span class="skill-tag">Reactive Programming</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases & Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Google Cloud Spanner</span>
+                        <span class="skill-tag">BigQuery</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Kafka</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Google Cloud</span>
+                        <span class="skill-tag">Azure</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">Jenkins</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>AI/ML & Data Engineering</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Large Language Models</span>
+                        <span class="skill-tag">MLflow</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">MLOps</span>
+                        <span class="skill-tag">Data Pipelines</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Security & Monitoring</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">OAuth2</span>
+                        <span class="skill-tag">JWT</span>
+                        <span class="skill-tag">Prometheus</span>
+                        <span class="skill-tag">Grafana</span>
+                        <span class="skill-tag">ELK Stack</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Replace your HTML sections here as needed -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="contact-content">
+        <p>I'm always open to discussing new opportunities, collaborations, or just having a tech conversation. Feel free to reach out!</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <a href="mailto:suovie@gmail.com">suovie@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">LinkedIn</div>
+            <a href="https://linkedin.com/in/suovie" target="_blank">linkedin.com/in/suovie</a>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">GitHub</div>
+            <a href="https://suovie.github.io" target="_blank">suovie.github.io</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animate timeline items on scroll
+        function animateOnScroll() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const skillCategories = document.querySelectorAll('.skill-category');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach((item, index) => {
+                item.style.animationDelay = (index * 0.2) + 's';
+                observer.observe(item);
+            });
+
+            skillCategories.forEach((category, index) => {
+                category.style.animationDelay = (index * 0.1) + 's';
+                observer.observe(category);
+            });
+        }
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateOnScroll();
+        });
+
+        // Add typing effect to hero subtitle
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Typing effect on load
+        window.addEventListener('load', () => {
+            const subtitle = document.querySelector('.hero .subtitle');
+            const originalText = subtitle.textContent;
+            typeWriter(subtitle, originalText, 80);
+        });
+    </script>
+</body>
+
+</body>
+</html>
